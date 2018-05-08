@@ -1,0 +1,1719 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Li\_Xinyu-PS1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Problem Set 1}\label{problem-set-1}
+
+Due April 11th at 5:30pm -\/- at the start of the class so we can
+discuss the solutions in class.
+
+\subsubsection{Before You Start}\label{before-you-start}
+
+Make sure to at least take a basic tutorial in the IPython notebook,
+otherwise you'll be totally lost. For this problem set, you should
+download flights.csv.bz2 and weather.csv.bz2 datasets from Canvas
+(files-data). Rename the notebook to LASTNAME\_FIRSTNAME-PS1.ipynb.
+
+When done, please submit 1. the notebook itself 2. the rendered html or
+pdf of it.
+
+    \subsection{About the Problem Set:}\label{about-the-problem-set}
+
+This problem set is rather similar to ones used for R, dplyr, and
+flights data. Just we use python and pandas.
+
+In this problem set you will perform a basic exploratory analysis on an
+example dataset, bringing to bear all of your new skills in data
+manipulation and visualization. You will be required to submit well
+commented python code, documenting all code used in this problem set,
+along with a write up answering all questions below. Use figures as
+appropriate to support your answers, and when required by the problem.
+
+    \subsection{Preliminaries}\label{preliminaries}
+
+You should also make sure the following libraries load correctly (click
+on the box below and hit Ctrl-Enter)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}IPython is what you are using now to run the notebook}
+        \PY{k+kn}{import} \PY{n+nn}{IPython}
+        \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IPython version:      }\PY{l+s+si}{\PYZpc{}6.6s}\PY{l+s+s2}{ (need at least 1.0)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{IPython}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Numpy is a library for working with Arrays}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Numpy version:        }\PY{l+s+si}{\PYZpc{}6.6s}\PY{l+s+s2}{ (need at least 1.7.1)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} SciPy implements many different numerical algorithms}
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SciPy version:        }\PY{l+s+si}{\PYZpc{}6.6s}\PY{l+s+s2}{ (need at least 0.12.0)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{sp}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Pandas makes working with data tables easier}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pandas version:       }\PY{l+s+si}{\PYZpc{}6.6s}\PY{l+s+s2}{ (need at least 0.11.0)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{pd}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Module for plotting}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mapltolib version:    }\PY{l+s+si}{\PYZpc{}6.6s}\PY{l+s+s2}{ (need at least 1.2.1)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}
+               \PY{n}{matplotlib}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{c+c1}{\PYZsh{} necessary for in\PYZhy{}line graphics}
+        
+        \PY{c+c1}{\PYZsh{} SciKit Learn implements several Machine Learning algorithms}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scikit\PYZhy{}Learn version: }\PY{l+s+si}{\PYZpc{}6.6s}\PY{l+s+s2}{ (need at least 0.13.1)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{sklearn}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+IPython version:       6.2.1 (need at least 1.0)
+Numpy version:        1.14.0 (need at least 1.7.1)
+SciPy version:         1.0.0 (need at least 0.12.0)
+Pandas version:       0.22.0 (need at least 0.11.0)
+Mapltolib version:     2.1.2 (need at least 1.2.1)
+Scikit-Learn version: 0.19.1 (need at least 0.13.1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Let\PYZsq{}s read the data and print some summary information}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} adjust the path for your file system!}
+        \PY{n}{flights\PYZus{}df}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../Problem\PYZus{}Set\PYZus{}1/flights.csv.bz2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+        Unnamed: 0  year  month  day  dep\_time  dep\_delay  arr\_time  \textbackslash{}
+0                1  2013      1    1     517.0        2.0     830.0   
+1                2  2013      1    1     533.0        4.0     850.0   
+2                3  2013      1    1     542.0        2.0     923.0   
+3                4  2013      1    1     544.0       -1.0    1004.0   
+4                5  2013      1    1     554.0       -6.0     812.0   
+5                6  2013      1    1     554.0       -4.0     740.0   
+6                7  2013      1    1     555.0       -5.0     913.0   
+7                8  2013      1    1     557.0       -3.0     709.0   
+8                9  2013      1    1     557.0       -3.0     838.0   
+9               10  2013      1    1     558.0       -2.0     753.0   
+10              11  2013      1    1     558.0       -2.0     849.0   
+11              12  2013      1    1     558.0       -2.0     853.0   
+12              13  2013      1    1     558.0       -2.0     924.0   
+13              14  2013      1    1     558.0       -2.0     923.0   
+14              15  2013      1    1     559.0       -1.0     941.0   
+15              16  2013      1    1     559.0        0.0     702.0   
+16              17  2013      1    1     559.0       -1.0     854.0   
+17              18  2013      1    1     600.0        0.0     851.0   
+18              19  2013      1    1     600.0        0.0     837.0   
+19              20  2013      1    1     601.0        1.0     844.0   
+20              21  2013      1    1     602.0       -8.0     812.0   
+21              22  2013      1    1     602.0       -3.0     821.0   
+22              23  2013      1    1     606.0       -4.0     858.0   
+23              24  2013      1    1     606.0       -4.0     837.0   
+24              25  2013      1    1     607.0        0.0     858.0   
+25              26  2013      1    1     608.0        8.0     807.0   
+26              27  2013      1    1     611.0       11.0     945.0   
+27              28  2013      1    1     613.0        3.0     925.0   
+28              29  2013      1    1     615.0        0.0    1039.0   
+29              30  2013      1    1     615.0        0.0     833.0   
+{\ldots}            {\ldots}   {\ldots}    {\ldots}  {\ldots}       {\ldots}        {\ldots}       {\ldots}   
+336746      336747  2013      9   30    2123.0       -2.0    2223.0   
+336747      336748  2013      9   30    2127.0       -2.0    2314.0   
+336748      336749  2013      9   30    2128.0       -2.0    2328.0   
+336749      336750  2013      9   30    2129.0       30.0    2230.0   
+336750      336751  2013      9   30    2131.0       -9.0    2225.0   
+336751      336752  2013      9   30    2140.0        0.0      10.0   
+336752      336753  2013      9   30    2142.0       13.0    2250.0   
+336753      336754  2013      9   30    2145.0        0.0     115.0   
+336754      336755  2013      9   30    2147.0       10.0      30.0   
+336755      336756  2013      9   30    2149.0       -7.0    2245.0   
+336756      336757  2013      9   30    2150.0       -9.0    2250.0   
+336757      336758  2013      9   30    2159.0      194.0    2344.0   
+336758      336759  2013      9   30    2203.0       -2.0    2339.0   
+336759      336760  2013      9   30    2207.0       27.0    2257.0   
+336760      336761  2013      9   30    2211.0       72.0    2339.0   
+336761      336762  2013      9   30    2231.0      -14.0    2335.0   
+336762      336763  2013      9   30    2233.0       80.0     112.0   
+336763      336764  2013      9   30    2235.0      154.0      59.0   
+336764      336765  2013      9   30    2237.0       -8.0    2345.0   
+336765      336766  2013      9   30    2240.0       -5.0    2334.0   
+336766      336767  2013      9   30    2240.0      -10.0    2347.0   
+336767      336768  2013      9   30    2241.0       -5.0    2345.0   
+336768      336769  2013      9   30    2307.0       12.0    2359.0   
+336769      336770  2013      9   30    2349.0      -10.0     325.0   
+336770      336771  2013      9   30       NaN        NaN       NaN   
+336771      336772  2013      9   30       NaN        NaN       NaN   
+336772      336773  2013      9   30       NaN        NaN       NaN   
+336773      336774  2013      9   30       NaN        NaN       NaN   
+336774      336775  2013      9   30       NaN        NaN       NaN   
+336775      336776  2013      9   30       NaN        NaN       NaN   
+
+        arr\_delay carrier tailnum  flight origin dest  air\_time  distance  \textbackslash{}
+0            11.0      UA  N14228    1545    EWR  IAH     227.0      1400   
+1            20.0      UA  N24211    1714    LGA  IAH     227.0      1416   
+2            33.0      AA  N619AA    1141    JFK  MIA     160.0      1089   
+3           -18.0      B6  N804JB     725    JFK  BQN     183.0      1576   
+4           -25.0      DL  N668DN     461    LGA  ATL     116.0       762   
+5            12.0      UA  N39463    1696    EWR  ORD     150.0       719   
+6            19.0      B6  N516JB     507    EWR  FLL     158.0      1065   
+7           -14.0      EV  N829AS    5708    LGA  IAD      53.0       229   
+8            -8.0      B6  N593JB      79    JFK  MCO     140.0       944   
+9             8.0      AA  N3ALAA     301    LGA  ORD     138.0       733   
+10           -2.0      B6  N793JB      49    JFK  PBI     149.0      1028   
+11           -3.0      B6  N657JB      71    JFK  TPA     158.0      1005   
+12            7.0      UA  N29129     194    JFK  LAX     345.0      2475   
+13          -14.0      UA  N53441    1124    EWR  SFO     361.0      2565   
+14           31.0      AA  N3DUAA     707    LGA  DFW     257.0      1389   
+15           -4.0      B6  N708JB    1806    JFK  BOS      44.0       187   
+16           -8.0      UA  N76515    1187    EWR  LAS     337.0      2227   
+17           -7.0      B6  N595JB     371    LGA  FLL     152.0      1076   
+18           12.0      MQ  N542MQ    4650    LGA  ATL     134.0       762   
+19           -6.0      B6  N644JB     343    EWR  PBI     147.0      1023   
+20           -8.0      DL  N971DL    1919    LGA  MSP     170.0      1020   
+21           16.0      MQ  N730MQ    4401    LGA  DTW     105.0       502   
+22          -12.0      AA  N633AA    1895    EWR  MIA     152.0      1085   
+23           -8.0      DL  N3739P    1743    JFK  ATL     128.0       760   
+24          -17.0      UA  N53442    1077    EWR  MIA     157.0      1085   
+25           32.0      MQ  N9EAMQ    3768    EWR  ORD     139.0       719   
+26           14.0      UA  N532UA     303    JFK  SFO     366.0      2586   
+27            4.0      B6  N635JB     135    JFK  RSW     175.0      1074   
+28          -21.0      B6  N794JB     709    JFK  SJU     182.0      1598   
+29           -9.0      DL  N326NB     575    EWR  ATL     120.0       746   
+{\ldots}           {\ldots}     {\ldots}     {\ldots}     {\ldots}    {\ldots}  {\ldots}       {\ldots}       {\ldots}   
+336746      -24.0      EV  N712EV    5489    LGA  CHO      45.0       305   
+336747       -9.0      EV  N16546    3833    EWR  CLT      72.0       529   
+336748      -31.0      B6  N807JB      97    JFK  DEN     213.0      1626   
+336749       -2.0      EV  N751EV    5048    LGA  RIC      45.0       292   
+336750      -30.0      MQ  N807MQ    3621    JFK  DCA      36.0       213   
+336751      -30.0      AA  N335AA     185    JFK  LAX     298.0      2475   
+336752       11.0      EV  N12957    4509    EWR  PWM      47.0       284   
+336753      -25.0      B6  N633JB    1103    JFK  SJU     192.0      1598   
+336754        3.0      B6  N627JB    1371    LGA  FLL     139.0      1076   
+336755      -23.0      UA  N813UA     523    EWR  BOS      37.0       200   
+336756      -16.0      EV  N10575    3842    EWR  MHT      39.0       209   
+336757      194.0      9E  N906XJ    3320    JFK  BUF      50.0       301   
+336758        8.0      EV  N722EV    5311    LGA  BGR      61.0       378   
+336759        7.0      MQ  N532MQ    3660    LGA  BNA      97.0       764   
+336760       57.0      EV  N12145    4672    EWR  STL     120.0       872   
+336761      -21.0      B6  N193JB     108    JFK  PWM      48.0       273   
+336762       42.0      UA  N578UA     471    EWR  SFO     318.0      2565   
+336763      130.0      B6  N804JB    1083    JFK  MCO     123.0       944   
+336764       -8.0      B6  N318JB     234    JFK  BTV      43.0       266   
+336765      -17.0      B6  N354JB    1816    JFK  SYR      41.0       209   
+336766      -20.0      B6  N281JB    2002    JFK  BUF      52.0       301   
+336767      -16.0      B6  N346JB     486    JFK  ROC      47.0       264   
+336768        1.0      B6  N565JB     718    JFK  BOS      33.0       187   
+336769      -25.0      B6  N516JB     745    JFK  PSE     196.0      1617   
+336770        NaN      EV  N740EV    5274    LGA  BNA       NaN       764   
+336771        NaN      9E     NaN    3393    JFK  DCA       NaN       213   
+336772        NaN      9E     NaN    3525    LGA  SYR       NaN       198   
+336773        NaN      MQ  N535MQ    3461    LGA  BNA       NaN       764   
+336774        NaN      MQ  N511MQ    3572    LGA  CLE       NaN       419   
+336775        NaN      MQ  N839MQ    3531    LGA  RDU       NaN       431   
+
+        hour  minute  
+0        5.0    17.0  
+1        5.0    33.0  
+2        5.0    42.0  
+3        5.0    44.0  
+4        5.0    54.0  
+5        5.0    54.0  
+6        5.0    55.0  
+7        5.0    57.0  
+8        5.0    57.0  
+9        5.0    58.0  
+10       5.0    58.0  
+11       5.0    58.0  
+12       5.0    58.0  
+13       5.0    58.0  
+14       5.0    59.0  
+15       5.0    59.0  
+16       5.0    59.0  
+17       6.0     0.0  
+18       6.0     0.0  
+19       6.0     1.0  
+20       6.0     2.0  
+21       6.0     2.0  
+22       6.0     6.0  
+23       6.0     6.0  
+24       6.0     7.0  
+25       6.0     8.0  
+26       6.0    11.0  
+27       6.0    13.0  
+28       6.0    15.0  
+29       6.0    15.0  
+{\ldots}      {\ldots}     {\ldots}  
+336746  21.0    23.0  
+336747  21.0    27.0  
+336748  21.0    28.0  
+336749  21.0    29.0  
+336750  21.0    31.0  
+336751  21.0    40.0  
+336752  21.0    42.0  
+336753  21.0    45.0  
+336754  21.0    47.0  
+336755  21.0    49.0  
+336756  21.0    50.0  
+336757  21.0    59.0  
+336758  22.0     3.0  
+336759  22.0     7.0  
+336760  22.0    11.0  
+336761  22.0    31.0  
+336762  22.0    33.0  
+336763  22.0    35.0  
+336764  22.0    37.0  
+336765  22.0    40.0  
+336766  22.0    40.0  
+336767  22.0    41.0  
+336768  23.0     7.0  
+336769  23.0    49.0  
+336770   NaN     NaN  
+336771   NaN     NaN  
+336772   NaN     NaN  
+336773   NaN     NaN  
+336774   NaN     NaN  
+336775   NaN     NaN  
+
+[336776 rows x 17 columns]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print} \PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(336776, 17)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{print} \PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['Unnamed: 0', 'year', 'month', 'day', 'dep\_time', 'dep\_delay',
+       'arr\_time', 'arr\_delay', 'carrier', 'tailnum', 'flight', 'origin',
+       'dest', 'air\_time', 'distance', 'hour', 'minute'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nb}{print} \PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Unnamed: 0      int64
+year            int64
+month           int64
+day             int64
+dep\_time      float64
+dep\_delay     float64
+arr\_time      float64
+arr\_delay     float64
+carrier        object
+tailnum        object
+flight          int64
+origin         object
+dest           object
+air\_time      float64
+distance        int64
+hour          float64
+minute        float64
+dtype: object
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{unique\PYZus{}dest} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{dest}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{unique\PYZus{}dest}\PY{p}{)}
+        
+        \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['IAH' 'MIA' 'BQN' 'ATL' 'ORD' 'FLL' 'IAD' 'MCO' 'PBI' 'TPA' 'LAX' 'SFO'
+ 'DFW' 'BOS' 'LAS' 'MSP' 'DTW' 'RSW' 'SJU' 'PHX' 'BWI' 'CLT' 'BUF' 'DEN'
+ 'SNA' 'MSY' 'SLC' 'XNA' 'MKE' 'SEA' 'ROC' 'SYR' 'SRQ' 'RDU' 'CMH' 'JAX'
+ 'CHS' 'MEM' 'PIT' 'SAN' 'DCA' 'CLE' 'STL' 'MYR' 'JAC' 'MDW' 'HNL' 'BNA'
+ 'AUS' 'BTV' 'PHL' 'STT' 'EGE' 'AVL' 'PWM' 'IND' 'SAV' 'CAK' 'HOU' 'LGB'
+ 'DAY' 'ALB' 'BDL' 'MHT' 'MSN' 'GSO' 'CVG' 'BUR' 'RIC' 'GSP' 'GRR' 'MCI'
+ 'ORF' 'SAT' 'SDF' 'PDX' 'SJC' 'OMA' 'CRW' 'OAK' 'SMF' 'TUL' 'TYS' 'OKC'
+ 'PVD' 'DSM' 'PSE' 'BHM' 'CAE' 'HDN' 'BZN' 'MTJ' 'EYW' 'PSP' 'ACK' 'BGR'
+ 'ABQ' 'ILM' 'MVY' 'SBN' 'LEX' 'CHO' 'TVC' 'ANC' 'LGA']
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    Unnamed: 0  year  month  day  dep\_time  dep\_delay  arr\_time  arr\_delay  \textbackslash{}
+        0           1  2013      1    1     517.0        2.0     830.0       11.0   
+        1           2  2013      1    1     533.0        4.0     850.0       20.0   
+        2           3  2013      1    1     542.0        2.0     923.0       33.0   
+        3           4  2013      1    1     544.0       -1.0    1004.0      -18.0   
+        4           5  2013      1    1     554.0       -6.0     812.0      -25.0   
+        5           6  2013      1    1     554.0       -4.0     740.0       12.0   
+        6           7  2013      1    1     555.0       -5.0     913.0       19.0   
+        7           8  2013      1    1     557.0       -3.0     709.0      -14.0   
+        8           9  2013      1    1     557.0       -3.0     838.0       -8.0   
+        9          10  2013      1    1     558.0       -2.0     753.0        8.0   
+        
+          carrier tailnum  flight origin dest  air\_time  distance  hour  minute  
+        0      UA  N14228    1545    EWR  IAH     227.0      1400   5.0    17.0  
+        1      UA  N24211    1714    LGA  IAH     227.0      1416   5.0    33.0  
+        2      AA  N619AA    1141    JFK  MIA     160.0      1089   5.0    42.0  
+        3      B6  N804JB     725    JFK  BQN     183.0      1576   5.0    44.0  
+        4      DL  N668DN     461    LGA  ATL     116.0       762   5.0    54.0  
+        5      UA  N39463    1696    EWR  ORD     150.0       719   5.0    54.0  
+        6      B6  N516JB     507    EWR  FLL     158.0      1065   5.0    55.0  
+        7      EV  N829AS    5708    LGA  IAD      53.0       229   5.0    57.0  
+        8      B6  N593JB      79    JFK  MCO     140.0       944   5.0    57.0  
+        9      AA  N3ALAA     301    LGA  ORD     138.0       733   5.0    58.0  
+\end{Verbatim}
+            
+    \subsection{Some Tips}\label{some-tips}
+
+\begin{itemize}
+\tightlist
+\item
+  This assignment involves extensive Data frame splitting and
+  aggregation. You should look into the details of the methods groupby,
+  transform, sum, count, mean etc
+\item
+  Many of the tasks in the assignment can be done either through the
+  Pandas Data Frame or by converting the data frames to Series. Many of
+  the methods in the numpy are applicable to Series only. When stuck,
+  try to explore the type of object (Pandas Data Frame or Numpy Series)
+  you are dealing with.
+\end{itemize}
+
+    \subsection{Question 1}\label{question-1}
+
+Let's explore flights from NYC to Seattle. Use the flights dataset to
+answer the following questions.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  How many flights were there from NYC airports to Seattle in 2013?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Your code here}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} followed https://www.shanelynn.ie/summarising\PYZhy{}aggregation\PYZhy{}and\PYZhy{}grouping\PYZhy{}data\PYZhy{}in\PYZhy{}python\PYZhy{}pandas/ to do the problem set}
+        
+        \PY{n+nb}{len}\PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{groups}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SEA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 3923
+\end{Verbatim}
+            
+    -\/- Answer: In the year of 2013, 3923 flights were from NYC airports to
+Seattle. -\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  How many airlines fly from NYC to Seattle?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Your code here}
+        \PY{n}{flights\PYZus{}to\PYZus{}SEA} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{dest} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SEA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{airlines\PYZus{}to\PYZus{}SEA} \PY{o}{=} \PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{o}{.}\PY{n}{carrier}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{airlines\PYZus{}to\PYZus{}SEA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['AS' 'DL' 'UA' 'B6' 'AA']
+
+    \end{Verbatim}
+
+    -\/- Answer: 5 Airlines fly from NYC airports to Seattle. -\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  How many unique air planes fly from NYC to Seattle?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Your code here}
+        \PY{n}{unique\PYZus{}planes\PYZus{}to\PYZus{}SEA} \PY{o}{=} \PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{o}{.}\PY{n}{tailnum}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{unique\PYZus{}planes\PYZus{}to\PYZus{}SEA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+935
+
+    \end{Verbatim}
+
+    -\/- Answer: 935 unique airplanes fly from NYC to Seattle. -\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  What is the average arrival delay for flights from NYC to Seattle?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{o}{.}\PY{n}{arr\PYZus{}delay}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} -1.0990990990990992
+\end{Verbatim}
+            
+    -\/- The average delay for flights from NYC to Seattle is -1.099. -\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  What proportion of flights to Seattle come from each NYC airport?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} NYC airports that have flights to SEA}
+         \PY{n}{NYC\PYZus{}airport\PYZus{}origin} \PY{o}{=} \PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{o}{.}\PY{n}{origin}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NYC\PYZus{}airport\PYZus{}origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{NYC\PYZus{}airport\PYZus{}origin}\PY{p}{)}   \PY{c+c1}{\PYZsh{} NOTE: only EWR and JFK have flights from NYC to SEA}
+         
+         \PY{c+c1}{\PYZsh{} total number of flights from NYC to SEA}
+         \PY{n}{total\PYZus{}NYC\PYZus{}to\PYZus{}SEA} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NYC\PYZus{}to\PYZus{}SEA: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{total\PYZus{}NYC\PYZus{}to\PYZus{}SEA}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} total number of flights from EWR to SEA}
+         \PY{n}{EWR\PYZus{}to\PYZus{}SEA} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{groups}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EWR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{proportion\PYZus{}EWR} \PY{o}{=} \PY{n}{EWR\PYZus{}to\PYZus{}SEA}\PY{o}{/}\PY{n}{total\PYZus{}NYC\PYZus{}to\PYZus{}SEA}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EWR\PYZus{}to\PYZus{}SEA: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{EWR\PYZus{}to\PYZus{}SEA}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{proportion\PYZus{}EWR: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{proportion\PYZus{}EWR}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} total number of flights from JFK to SEA}
+         \PY{n}{JFK\PYZus{}to\PYZus{}SEA} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{flights\PYZus{}to\PYZus{}SEA}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{groups}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JFK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{proportion\PYZus{}JFK} \PY{o}{=} \PY{n}{JFK\PYZus{}to\PYZus{}SEA}\PY{o}{/}\PY{n}{total\PYZus{}NYC\PYZus{}to\PYZus{}SEA}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JFK\PYZus{}to\PYZus{}SEA: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{JFK\PYZus{}to\PYZus{}SEA}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{proportion\PYZus{}JFK: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{proportion\PYZus{}JFK}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+NYC\_airport\_origin ['EWR' 'JFK']
+NYC\_to\_SEA:  3923
+EWR\_to\_SEA:  1831 proportion\_EWR:  46.67 \%
+JFK\_to\_SEA:  2092 proportion\_JFK:  53.33 \%
+
+    \end{Verbatim}
+
+    -\/- Answer: Only EWR and JFK have flights from NYC to SEA. 46.67\% of
+the flights from NYC to SEA comes from EWR 53.33\% of the flights from
+NYC to SEA comes from JFK -\/-
+
+    \subsection{Question 2}\label{question-2}
+
+Flights are often delayed. Consider the following questions exploring
+delay patterns.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Which date has the largest average departure delay? Which date has the
+  largest average arrival delay?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} group dep\PYZus{}delay that have positive numbers by date}
+         \PY{n}{departure\PYZus{}delay} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{avg\PYZus{}dep\PYZus{}delay} \PY{o}{=} \PY{n}{departure\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{avg\PYZus{}dep\PYZus{}delay}
+         
+         \PY{c+c1}{\PYZsh{} find the max of dep\PYZus{}delay}
+         \PY{n}{dep\PYZus{}delay\PYZus{}max} \PY{o}{=} \PY{n}{avg\PYZus{}dep\PYZus{}delay}\PY{p}{[}\PY{n}{avg\PYZus{}dep\PYZus{}delay}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{n}{avg\PYZus{}dep\PYZus{}delay}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{dep\PYZus{}delay\PYZus{}max}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}                    Unnamed: 0     dep\_time   dep\_delay     arr\_time  \textbackslash{}
+         year month day                                                        
+         2013 3     8    143213.777948  1502.488515  102.903522  1541.917305   
+         
+                          arr\_delay       flight    air\_time     distance       hour  \textbackslash{}
+         year month day                                                                
+         2013 3     8    101.607963  1687.222052  150.228178  1081.352221  14.738132   
+         
+                            minute  
+         year month day             
+         2013 3     8    28.675345  
+\end{Verbatim}
+            
+    -\/- Answer: March 8th 2013 has the longest departure delay of 102.90
+-\/-
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} group arr\PYZus{}delay that have positive numbers by date}
+         \PY{n}{arrival\PYZus{}delay} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arr\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{avg\PYZus{}arr\PYZus{}delay} \PY{o}{=} \PY{n}{arrival\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{avg\PYZus{}arr\PYZus{}delay}
+         
+         \PY{c+c1}{\PYZsh{} find the max of arr\PYZus{}delay}
+         \PY{c+c1}{\PYZsh{} learned the df.loc way from http://www.datasciencemadesimple.com/select\PYZhy{}row\PYZhy{}maximum\PYZhy{}minimum\PYZhy{}value\PYZhy{}python\PYZhy{}pandas/}
+         \PY{n}{arr\PYZus{}delay\PYZus{}max} \PY{o}{=} \PY{n}{avg\PYZus{}arr\PYZus{}delay}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{avg\PYZus{}arr\PYZus{}delay}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arr\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{arr\PYZus{}delay\PYZus{}max}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Unnamed: 0    259200.202783
+         dep\_time        1534.888668
+         dep\_delay         87.783300
+         arr\_time        1344.916501
+         arr\_delay        110.093439
+         flight          1788.904573
+         air\_time         161.254473
+         distance        1142.854871
+         hour              15.049702
+         minute            29.918489
+         Name: (2013, 7, 10), dtype: float64
+\end{Verbatim}
+            
+    -\/- Answer: July 10th 2013 has the longest departure delay of 110.09
+-\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What was the worst day to fly out of NYC in 2013 if you dislike
+  delayed flights?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} group departure delay by date}
+         \PY{n}{overall\PYZus{}dep\PYZus{}delay} \PY{o}{=} \PY{n}{departure\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}find the max of total daily delay \PYZsh{}}
+         \PY{n}{worst\PYZus{}day\PYZus{}dep\PYZus{}delay} \PY{o}{=} \PY{n}{overall\PYZus{}dep\PYZus{}delay}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{overall\PYZus{}dep\PYZus{}delay}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{worst\PYZus{}day\PYZus{}dep\PYZus{}delay}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} Unnamed: 0    674
+         dep\_time      674
+         dep\_delay     674
+         arr\_time      674
+         arr\_delay     673
+         carrier       674
+         tailnum       674
+         flight        674
+         origin        674
+         dest          674
+         air\_time      673
+         distance      674
+         hour          674
+         minute        674
+         Name: (2013, 12, 23), dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} group arrival delay by date}
+         \PY{n}{overall\PYZus{}arr\PYZus{}delay} \PY{o}{=} \PY{n}{arrival\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}find the max of total daily delay \PYZsh{}}
+         \PY{n}{worst\PYZus{}day\PYZus{}arr\PYZus{}delay} \PY{o}{=} \PY{n}{overall\PYZus{}arr\PYZus{}delay}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{overall\PYZus{}arr\PYZus{}delay}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arr\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{worst\PYZus{}day\PYZus{}arr\PYZus{}delay}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} Unnamed: 0    780
+         dep\_time      780
+         dep\_delay     780
+         arr\_time      780
+         arr\_delay     780
+         carrier       780
+         tailnum       780
+         flight        780
+         origin        780
+         dest          780
+         air\_time      780
+         distance      780
+         hour          780
+         minute        780
+         Name: (2013, 12, 17), dtype: int64
+\end{Verbatim}
+            
+    -\/- Answer: December 23rd, 2013 has the worst day of departure delay.
+December 17th, 2013 has the worst day of arrival delay. If someone
+dislike delayed flights then the person should try to avoid December and
+July as in 2013, July 10th has the longest time of delay and December
+23rd has the largest total number of delayed cases. -\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Are there any seasonal patterns in departure delays for flights from
+  NYC?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} group departure delay by month}
+         \PY{n}{monthly\PYZus{}dep\PYZus{}delay} \PY{o}{=} \PY{n}{departure\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plot the departure delay by month}
+         \PY{n}{monthly\PYZus{}dep\PYZus{}delay}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+         \PY{n}{matplotlib}\PY{o}{.}\PY{n}{pyplot}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    -\/- Answer: As can be observed from the plot, June and July experienced
+the worst average delay during the year. This could because that summer
+is a busy traveling season and more flights are arranged and therefore
+the delay rate is higher. -\/-
+
+    \begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  On average, how do departure delays vary over the course of a day?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} group departure delay by dep\PYZus{}time}
+         \PY{n}{daily\PYZus{}dep\PYZus{}delay} \PY{o}{=} \PY{n}{departure\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plot the daily departure delay}
+         \PY{n}{daily\PYZus{}dep\PYZus{}delay}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+         \PY{n}{matplotlib}\PY{o}{.}\PY{n}{pyplot}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    -\/- Answer: As can be observed from the plot, the delay is pretty
+common and frequently seen for red eye flights (with the time frame from
+22:00 - 4:00). The delay improves from 5:00 in the morning and is pretty
+low throughout the day. -\/-
+
+    \subsection{Question 3}\label{question-3}
+
+Which flight departing NYC in 2013 flew the fastest?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} Calculating the speed for the flights}
+         \PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{air\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Getting the max speed}
+         \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Unnamed: 0     216448
+         year             2013
+         month               5
+         day                25
+         dep\_time         1709
+         dep\_delay           9
+         arr\_time         1923
+         arr\_delay         -14
+         carrier            DL
+         tailnum        N666DN
+         flight           1499
+         origin            LGA
+         dest              ATL
+         air\_time           65
+         distance          762
+         hour               17
+         minute              9
+         speed         11.7231
+         Name: 216447, dtype: object
+\end{Verbatim}
+            
+    -\/- Answer: On May 25th, 2013, the DL 1499 from LGA to ATL flew the
+fastest with a speed of 11.72. -\/-
+
+    \subsection{Question 4}\label{question-4}
+
+Which flights (i.e. carrier + flight + dest) happen every day? Where do
+they fly to?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} Create carrier+flight+dest column}
+         \PY{n}{flights\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{carrier\PYZus{}flight\PYZus{}dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{carrier} \PY{o}{+} \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{flight}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{  }\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                                         \PY{o}{+} \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{dest}
+         
+         \PY{c+c1}{\PYZsh{} count the total number of flights for flights\PYZus{}by\PYZus{}date   }
+         \PY{n}{total} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{carrier\PYZus{}flight\PYZus{}dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{total}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{total}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} flights that happen 365 days }
+         \PY{n}{flights\PYZus{}365} \PY{o}{=} \PY{n}{total}\PY{p}{[}\PY{n}{total}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{365}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{carrier\PYZus{}flight\PYZus{}dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{flights\PYZus{}365}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+  carrier\_flight\_dest  Unnamed: 0  year  month  day  dep\_time  dep\_delay  \textbackslash{}
+0         9E2900  BNA          59    59     59   59        59         59   
+1         9E2901  BOS          55    55     55   55        55         55   
+2         9E2902  BOS          55    55     55   55        53         53   
+3         9E2903  BOS          29    29     29   29        29         29   
+4         9E2903  CLT          27    27     27   27        26         26   
+
+   arr\_time  arr\_delay  carrier  tailnum  flight  origin  dest  air\_time  \textbackslash{}
+0        59         59       59       59      59      59    59        59   
+1        55         55       55       55      55      55    55        55   
+2        53         53       55       53      55      55    55        53   
+3        27         27       29       29      29      29    29        27   
+4        26         26       27       26      27      27    27        26   
+
+   distance  hour  minute  speed  
+0        59    59      59     59  
+1        55    55      55     55  
+2        55    53      53     53  
+3        29    29      29     27  
+4        27    26      26     26  
+790       AA119  LAX
+801      AA1357  SJU
+813      AA1611  MIA
+842       AA181  LAX
+941        AA59  SFO
+1130     B61783  MCO
+1178      B6219  CLT
+1241      B6359  BUR
+1246      B6371  FLL
+1272      B6431  SRQ
+1362      B6703  SJU
+1735     DL2159  MCO
+1805     DL2391  TPA
+4631     EV5712  IAD
+6561       UA15  HNL
+10605     VX251  LAS
+10609     VX407  LAX
+10613     VX413  LAX
+Name: carrier\_flight\_dest, dtype: object
+
+    \end{Verbatim}
+
+    -\/- AA119 LAX Los Angeles
+
+AA1357 SJU San Juan, Puerto Rico
+
+AA1611 MIA Miami
+
+AA181 LAX Los Angeles
+
+AA59 SFO San Francisco
+
+B61783 MCO Orlando
+
+B6219 CLT Charlotte
+
+B6359 BUR Burbank
+
+B6371 FLL Fort Lauderdale
+
+B6431 SRQ Sarasota
+
+B6703 SJU San Juan, Puerto Rico
+
+DL2159 MCO Orlando
+
+DL2391 TPA Tampa
+
+EV5712 IAD Dulles
+
+UA15 HNL Honolulu
+
+VX251 LAS Las Vegas
+
+VX407 LAX Los Angeles
+
+VX413 LAX Los Angeles -\/-
+
+    \subsection{Question 5}\label{question-5}
+
+Develop one research question you can address using the nycflights2013
+dataset. Provide two visualizations to support your exploration of this
+question. Discuss what you find.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{c+c1}{\PYZsh{} Research Question: which airport has the worst delay?}
+         \PY{c+c1}{\PYZsh{} each airport\PYZsq{}s average departure delay time}
+         \PY{n}{dep\PYZus{}delay\PYZus{}airport} \PY{o}{=} \PY{n}{departure\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PYZbs{}
+         \PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{dep\PYZus{}delay\PYZus{}airport}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} each airport\PYZsq{}s average arrival delay time}
+         \PY{n}{arr\PYZus{}delay\PYZus{}airport} \PY{o}{=} \PY{n}{arrival\PYZus{}delay}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PYZbs{}
+         \PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{arr\PYZus{}delay\PYZus{}airport}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    -\/- Answer: As can be seen from the graph, for the average depature
+delay: LGA \textgreater{} EWR \textgreater{} JFK. EWR and JFK have a
+relatively close average departure delay but LGA has a slightly higher
+avg delay among the three. For the average arrival delay: EWR
+\textgreater{} JFK \textgreater{} LGA. EWR clearly has the largest
+number of arrival delay and LGA has the smallest. Passengers from NYC
+should try to pick LGA as their arrival airport and JFK as their
+departure airport so that they can get a better chance of on-time for
+their flights. -\/-
+
+    \subsection{Question 6}\label{question-6}
+
+What weather conditions are associated with flight delays leaving NYC?
+Use graphics to explore.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Your code here}
+         \PY{c+c1}{\PYZsh{} import the weather data}
+         \PY{n}{weather\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../Problem\PYZus{}Set\PYZus{}1/weather.csv.bz2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{weather\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}     Unnamed: 0 origin  year  month  day  hour   temp   dewp  humid  wind\_dir  \textbackslash{}
+         0            1    EWR  2013    1.0  1.0   0.0  37.04  21.92  53.97     230.0   
+         1            2    EWR  2013    1.0  1.0   1.0  37.04  21.92  53.97     230.0   
+         2            3    EWR  2013    1.0  1.0   2.0  37.94  21.92  52.09     230.0   
+         3            4    EWR  2013    1.0  1.0   3.0  37.94  23.00  54.51     230.0   
+         4            5    EWR  2013    1.0  1.0   4.0  37.94  24.08  57.04     240.0   
+         5            6    EWR  2013    1.0  1.0   6.0  39.02  26.06  59.37     270.0   
+         6            7    EWR  2013    1.0  1.0   7.0  39.02  26.96  61.63     250.0   
+         7            8    EWR  2013    1.0  1.0   8.0  39.02  28.04  64.43     240.0   
+         8            9    EWR  2013    1.0  1.0   9.0  39.92  28.04  62.21     250.0   
+         9           10    EWR  2013    1.0  1.0  10.0  39.02  28.04  64.43     260.0   
+         10          11    EWR  2013    1.0  1.0  11.0  37.94  28.04  67.21     240.0   
+         11          12    EWR  2013    1.0  1.0  12.0  39.02  28.04  64.43     240.0   
+         12          13    EWR  2013    1.0  1.0  13.0  39.92  28.04  62.21     250.0   
+         13          14    EWR  2013    1.0  1.0  14.0  39.92  28.04  62.21     260.0   
+         14          15    EWR  2013    1.0  1.0  15.0  41.00  28.04  59.65     260.0   
+         15          16    EWR  2013    1.0  1.0  16.0  41.00  26.96  57.06     260.0   
+         16          17    EWR  2013    1.0  1.0  17.0  39.20  28.40  64.93     270.0   
+         17          18    EWR  2013    1.0  1.0  18.0  39.20  28.40  64.93     330.0   
+         18          19    EWR  2013    1.0  1.0  19.0  39.02  24.08  54.68     280.0   
+         19          20    EWR  2013    1.0  1.0  20.0  37.94  24.08  57.04     290.0   
+         
+             wind\_speed  wind\_gust  precip  pressure  visib  
+         0     10.35702  11.918651     0.0    1013.9   10.0  
+         1     13.80936  15.891535     0.0    1013.0   10.0  
+         2     12.65858  14.567241     0.0    1012.6   10.0  
+         3     13.80936  15.891535     0.0    1012.7   10.0  
+         4     14.96014  17.215830     0.0    1012.8   10.0  
+         5     10.35702  11.918651     0.0    1012.0   10.0  
+         6      8.05546   9.270062     0.0    1012.3   10.0  
+         7     11.50780  13.242946     0.0    1012.5   10.0  
+         8     12.65858  14.567241     0.0    1012.2   10.0  
+         9     12.65858  14.567241     0.0    1011.9   10.0  
+         10    11.50780  13.242946     0.0    1012.4   10.0  
+         11    14.96014  17.215830     0.0    1012.2   10.0  
+         12    10.35702  11.918651     0.0    1012.2   10.0  
+         13    14.96014  17.215830     0.0    1012.7   10.0  
+         14    13.80936  15.891535     0.0    1012.4   10.0  
+         15    14.96014  17.215830     0.0    1011.4   10.0  
+         16    16.11092  18.540125     0.0       NaN   10.0  
+         17    14.96014  17.215830     0.0       NaN   10.0  
+         18    13.80936  15.891535     0.0    1010.8   10.0  
+         19     9.20624  10.594357     0.0    1011.9   10.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Aggregate both datasets and remove the unnamed:0 column}
+         \PY{n}{weather\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{weather\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Aggragating data }
+         \PY{n}{weather\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Getting rid of the grouped indices}
+         \PY{n}{weather\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{weather\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{weather\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{weather\PYZus{}df}
+         
+         \PY{n}{flights\PYZus{}new} \PY{o}{=} \PY{n}{flights\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{flights\PYZus{}new}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{flights\PYZus{}new}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{flights\PYZus{}new}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{flights\PYZus{}new}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{level} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{flights\PYZus{}new}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}      origin  day  month  year     Unnamed: 0     dep\_time  dep\_delay  \textbackslash{}
+         0       EWR    1      1  2013     431.849180  1407.332237  17.483553   
+         1       JFK    1      1  2013     453.047138  1448.209459  12.219595   
+         2       LGA    1      1  2013     369.308333  1277.831933   3.134454   
+         3       EWR    2      1  2013    1313.745714  1345.773256  25.322674   
+         4       JFK    2      1  2013    1342.978193  1409.968750   8.143750   
+         5       LGA    2      1  2013    1280.128676  1298.217712   6.055351   
+         6       EWR    3      1  2013    2233.696429  1343.669670   8.450450   
+         7       JFK    3      1  2013    2265.345912  1405.562893  13.814465   
+         8       LGA    3      1  2013    2225.934615  1312.312253  10.774704   
+         9       EWR    4      1  2013    3149.581121  1336.442136  12.103858   
+         10      JFK    4      1  2013    3187.481132  1404.946372  10.444795   
+         11      LGA    4      1  2013    3129.178295  1291.972549   2.929412   
+         12      EWR    5      1  2013    3961.735294  1295.489451   5.696203   
+         13      JFK    5      1  2013    4015.377483  1418.060000   7.730000   
+         14      LGA    5      1  2013    3922.794444  1213.094444   2.450000   
+         15      EWR    6      1  2013    4760.146179  1417.220000  12.383333   
+         16      JFK    6      1  2013    4758.355049  1412.615635   6.035831   
+         17      LGA    6      1  2013    4726.772321  1356.142857   1.660714   
+         18      EWR    7      1  2013    5622.479532  1326.385965   9.777778   
+         19      JFK    7      1  2013    5664.462541  1395.323529   3.911765   
+         20      LGA    7      1  2013    5611.658451  1298.521277   1.762411   
+         21      EWR    8      1  2013    6535.766467  1308.864458   3.807229   
+         22      JFK    8      1  2013    6577.104167  1390.829861   3.770833   
+         23      LGA    8      1  2013    6535.736462  1308.036364  -0.236364   
+         24      EWR    9      1  2013    7440.988095  1315.925373   3.131343   
+         25      JFK    9      1  2013    7469.048611  1364.642361   5.583333   
+         26      LGA    9      1  2013    7439.535971  1299.321168  -2.244526   
+         27      EWR   10      1  2013    8358.854651  1322.443149   5.580175   
+         28      JFK   10      1  2013    8392.526144  1378.718954   2.199346   
+         29      LGA   10      1  2013    8347.585106  1295.521429   0.200000   
+         {\ldots}     {\ldots}  {\ldots}    {\ldots}   {\ldots}            {\ldots}          {\ldots}        {\ldots}   
+         1065    EWR   22     12  2013  103053.733553  1444.956522  46.160535   
+         1066    JFK   22     12  2013  103038.942308  1423.292605  20.109325   
+         1067    LGA   22     12  2013  103023.010753  1396.136691  21.255396   
+         1068    EWR   23     12  2013  103979.575499  1382.616715  42.590778   
+         1069    JFK   23     12  2013  104003.952077  1402.741722  33.341060   
+         1070    LGA   23     12  2013  103954.040498  1325.901587  19.825397   
+         1071    EWR   24     12  2013  104825.378906  1232.861660   9.450593   
+         1072    JFK   24     12  2013  104897.907473  1397.559140   6.086022   
+         1073    LGA   24     12  2013  104824.834821  1222.350000   4.540909   
+         1074    EWR   25     12  2013  105583.918803  1373.884615  10.094017   
+         1075    JFK   25     12  2013  105623.283636  1453.036630   6.875458   
+         1076    LGA   25     12  2013  105560.038095  1312.783654   5.581731   
+         1077    EWR   26     12  2013  106408.136646  1347.687500  20.256250   
+         1078    JFK   26     12  2013  106450.837061  1416.670968  11.087097   
+         1079    LGA   26     12  2013  106399.069767  1328.440000  11.630000   
+         1080    EWR   27     12  2013  107364.250729  1343.344023  16.256560   
+         1081    JFK   27     12  2013  107396.605678  1398.539432   9.378549   
+         1082    LGA   27     12  2013  107345.495050  1308.695364   6.533113   
+         1083    EWR   28     12  2013  108248.624561  1321.817544   8.768421   
+         1084    JFK   28     12  2013  108294.706667  1413.163880  11.036789   
+         1085    LGA   28     12  2013  108219.803493  1257.676856   3.013100   
+         1086    EWR   29     12  2013  109108.773026  1388.302721  30.139456   
+         1087    JFK   29     12  2013  109129.273016  1442.462783  25.757282   
+         1088    LGA   29     12  2013  109083.866171  1357.849624   9.650376   
+         1089    EWR   30     12  2013  110044.491525  1354.776812  16.730435   
+         1090    JFK   30     12  2013  110055.612179  1386.881029   9.604502   
+         1091    LGA   30     12  2013  110007.387417  1295.661074   4.855705   
+         1092    EWR   31     12  2013  110896.288889  1252.057692   9.776923   
+         1093    JFK   31     12  2013  110951.568905  1393.292857   7.842857   
+         1094    LGA   31     12  2013  110868.627803  1210.131818   2.631818   
+         
+                  arr\_time  arr\_delay       flight    air\_time     distance       hour  \textbackslash{}
+         0     1568.815182  20.886667  2276.868852  166.886667  1043.259016  13.779605   
+         1     1595.567568   8.088136  1165.316498  192.722034  1296.690236  14.165541   
+         2     1512.785714   7.885593  2054.816667  144.330508   849.520833  12.449580   
+         3     1514.172012  25.439883  2389.082857  159.196481  1002.974286  13.151163   
+         4     1570.341693   3.268139  1270.915888  185.772871  1285.716511  13.790625   
+         5     1511.944649   7.659259  2074.555147  138.311111   843.139706  12.664207   
+         6     1542.600601   6.102719  2350.369048  151.362538   981.630952  13.132132   
+         7     1537.169811   1.766562  1341.446541  179.328076  1264.553459  13.732704   
+         8     1526.881423  10.238095  2047.457692  134.865079   831.542308  12.810277   
+         9     1504.557864   1.768546  2388.061947  143.388724   969.179941  13.074184   
+         10    1549.145110  -2.594937  1355.270440  178.018987  1262.267296  13.725552   
+         11    1501.027451  -6.003922  2037.038760  127.568627   832.410853  12.611765   
+         12    1500.594937  -1.367089  2065.399160  157.097046  1044.357143  12.641350   
+         13    1556.550000   0.676667  1351.115894  180.483333  1222.046358  13.873333   
+         14    1441.361111  -5.405556  1962.288889  132.838889   839.172222  11.816667   
+         15    1588.410000  10.983278  2374.289037  152.327759   991.255814  13.876667   
+         16    1562.745928   2.565359  1343.892508  185.516340  1264.853420  13.807818   
+         17    1566.348214  -2.486607  2035.209821  135.750000   840.589286  13.236607   
+         18    1501.742690  -1.964912  2498.590643  139.064327   946.628655  12.970760   
+         19    1543.516340 -11.578431  1388.990228  175.964052  1254.729642  13.637255   
+         20    1504.024823  -1.368794  2038.926056  117.368794   783.186620  12.652482   
+         21    1526.707831   0.845455  2466.398204  145.109091   946.877246  12.786145   
+         22    1556.388889  -6.707317  1444.555556  177.780488  1227.211806  13.583333   
+         23    1518.996364  -4.483636  2041.992780  123.829091   780.866426  12.749091   
+         24    1532.907463   4.528358  2485.464286  149.788060   939.369048  12.865672   
+         25    1528.444056  -1.528169  1455.482639  180.559859  1222.680556  13.329861   
+         26    1504.791971  -4.813869  2033.798561  127.386861   782.305755  12.631387   
+         27    1519.965015  -0.574344  2496.000000  141.626822   944.895349  12.932945   
+         28    1542.434641 -12.235294  1399.375817  177.039216  1240.428105  13.467320   
+         29    1506.496429  -5.496429  2044.453901  119.467857   783.808511  12.603571   
+         {\ldots}           {\ldots}        {\ldots}          {\ldots}         {\ldots}          {\ldots}        {\ldots}   
+         1065  1461.144295  37.993289  2164.476974  170.187919  1137.279605  14.163880   
+         1066  1467.935691  18.321543  1244.375000  191.903537  1332.727564  13.916399   
+         1067  1582.104317  15.000000  2204.405018  128.274368   802.408602  13.643885   
+         1068  1395.705202  38.644509  2241.017094  173.124277  1125.851852  13.533141   
+         1069  1378.338870  31.000000  1268.511182  197.803987  1336.408946  13.731788   
+         1070  1527.422222  26.309904  2274.445483  133.766773   801.149533  12.949206   
+         1071  1437.276680   1.339921  1882.765625  174.241107  1159.058594  12.023715   
+         1072  1557.992832  -0.770609  1227.281139  191.010753  1306.519573  13.673835   
+         1073  1438.618182  -4.131818  2062.830357  133.350000   839.459821  11.918182   
+         1074  1528.884615  -0.153846  1957.811966  169.012821  1146.346154  13.452991   
+         1075  1540.538462  -1.164835  1222.523636  186.505495  1306.087273  14.230769   
+         1076  1523.899038  -4.826923  2009.219048  131.206731   839.657143  12.802885   
+         1077  1471.971875  11.896875  2205.590062  171.871875  1151.316770  13.193750   
+         1078  1501.532258   5.212903  1250.680511  192.809677  1342.399361  13.858065   
+         1079  1546.346667   4.163333  2313.451827  131.416667   824.132890  12.956667   
+         1080  1513.183673   4.947522  2365.017493  159.985423  1099.708455  13.131195   
+         1081  1481.362776  -2.123028  1262.873817  185.671924  1326.820189  13.687697   
+         1082  1523.651163  -3.877076  2312.194719  128.332226   822.521452  12.751656   
+         1083  1478.385965  -3.484211  2145.161404  166.494737  1147.336842  12.922807   
+         1084  1471.043478  -0.461538  1274.566667  183.702341  1294.490000  13.819398   
+         1085  1480.620087  -6.633188  2112.030568  132.716157   866.799127  12.248908   
+         1086  1435.411565  20.689420  2222.644737  170.784983  1135.401316  13.595238   
+         1087  1441.770227  27.313916  1276.568254  190.045307  1319.279365  14.142395   
+         1088  1550.804511   6.710526  2202.795539  132.785714   829.814126  13.263158   
+         1089  1500.588406  15.046377  2224.878531  174.397101  1121.957627  13.263768   
+         1090  1507.839228   8.141935  1270.182692  197.929032  1333.509615  13.565916   
+         1091  1522.929530   6.275168  2271.175497  137.587248   827.384106  12.617450   
+         1092  1462.392308  10.288462  1888.637037  180.046154  1178.037037  12.226923   
+         1093  1501.814286   9.333333  1219.420495  196.537634  1307.053004  13.617857   
+         1094  1423.081818  -2.563636  2027.937220  137.563636   839.910314  11.777273   
+         
+                  minute     speed  
+         0     29.371711  5.891418  
+         1     31.655405  6.227378  
+         2     32.873950  5.701970  
+         3     30.656977  5.955132  
+         4     30.906250  6.331770  
+         5     31.797048  5.962650  
+         6     30.456456  6.083438  
+         7     32.292453  6.406927  
+         8     31.284585  5.960878  
+         9     29.023739  6.332914  
+         10    32.391167  6.498212  
+         11    30.796078  6.330105  
+         12    31.354430  6.235933  
+         13    30.726667  6.327830  
+         14    31.427778  6.175347  
+         15    29.553333  6.116096  
+         16    31.833876  6.247609  
+         17    32.482143  6.049123  
+         18    29.309942  6.435934  
+         19    31.598039  6.580083  
+         20    33.273050  6.452772  
+         21    30.250000  6.159263  
+         22    32.496528  6.369607  
+         23    33.127273  6.121604  
+         24    29.358209  5.962322  
+         25    31.656250  6.217029  
+         26    36.182482  5.892059  
+         27    29.148688  6.310658  
+         28    31.986928  6.502353  
+         29    35.164286  6.315811  
+         {\ldots}         {\ldots}       {\ldots}  
+         1065  28.568562  6.371982  
+         1066  31.652733  6.512372  
+         1067  31.748201  6.051161  
+         1068  29.302594  6.206072  
+         1069  29.562914  6.498498  
+         1070  30.980952  5.886286  
+         1071  30.490119  6.424357  
+         1072  30.175627  6.448021  
+         1073  30.531818  6.187606  
+         1074  28.585470  6.510702  
+         1075  29.959707  6.608201  
+         1076  32.495192  6.272479  
+         1077  28.312500  6.358283  
+         1078  30.864516  6.524781  
+         1079  32.773333  6.160522  
+         1080  30.224490  6.454979  
+         1081  29.769716  6.603878  
+         1082  33.529801  6.259727  
+         1083  29.536842  6.595193  
+         1084  31.224080  6.633690  
+         1085  32.786026  6.405038  
+         1086  28.778912  6.395010  
+         1087  28.223301  6.525322  
+         1088  31.533835  6.147715  
+         1089  28.400000  6.099926  
+         1090  30.289389  6.322723  
+         1091  33.916107  5.916681  
+         1092  29.365385  6.170129  
+         1093  31.507143  6.212847  
+         1094  32.404545  6.011691  
+         
+         [1095 rows x 15 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} leave the useful columns only for analysis}
+         \PY{n}{flights\PYZus{}cleaned} \PY{o}{=} \PY{n}{flights\PYZus{}new}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{flights\PYZus{}cleaned}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{weather\PYZus{}df} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{weather\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dewp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{humid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}dir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}gust}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{visib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Merge two datasets}
+         \PY{n}{flights\PYZus{}weather} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{weather\PYZus{}df}\PY{p}{,}\PY{n}{flights\PYZus{}cleaned}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{flights\PYZus{}weather}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}     origin  year month day       temp       dewp      humid    wind\_dir  \textbackslash{}
+         0      EWR  2013     1   1  38.480000  25.050435  58.386087  263.043478   
+         1      EWR  2013     1   2  28.835000  11.382500  47.786250  307.916667   
+         2      EWR  2013     1   3  29.457500  14.780000  54.395833  276.956522   
+         3      EWR  2013     1   4  33.477500  19.205000  55.880417  242.916667   
+         4      EWR  2013     1   5  36.732500  19.242500  49.284583  271.666667   
+         5      EWR  2013     1   6  37.970000  26.390000  64.749167  230.833333   
+         6      EWR  2013     1   7  41.277500  24.567500  52.977917  288.750000   
+         7      EWR  2013     1   8  38.315000  26.255000  63.067500  184.166667   
+         8      EWR  2013     1   9  40.782500  31.775000  70.531250  137.916667   
+         9      EWR  2013     1  10  44.187500  26.817500  52.204167  286.250000   
+         10     EWR  2013     1  11  41.382500  29.990000  64.544583   76.956522   
+         11     EWR  2013     1  12  45.620000  44.322500  95.299167   75.416667   
+         12     EWR  2013     1  13  45.875000  44.480000  94.967500   65.652174   
+         13     EWR  2013     1  14  51.342500  45.650000  83.949583  167.391304   
+         14     EWR  2013     1  15  39.372500  29.435000  68.736250  225.833333   
+         15     EWR  2013     1  16  34.760000  31.475000  88.527500  111.818182   
+         16     EWR  2013     1  17  39.897500  29.487500  67.879167  277.391304   
+         17     EWR  2013     1  18  31.812500  13.040000  46.866250  257.500000   
+         18     EWR  2013     1  19  36.995000  19.122500  49.188333  207.916667   
+         19     EWR  2013     1  20  45.365000  24.320000  46.686250  231.250000   
+         20     EWR  2013     1  21  30.207500   9.912500  42.249167  223.750000   
+         21     EWR  2013     1  22  23.270000   3.282500  42.902500  286.250000   
+         22     EWR  2013     1  23  15.492500  -5.207500  39.284167  285.416667   
+         23     EWR  2013     1  24  17.675000  -1.307500  45.080000  275.000000   
+         24     EWR  2013     1  25  17.847500   1.505000  49.060833  256.956522   
+         25     EWR  2013     1  26  20.112500  10.025000  66.837083  289.583333   
+         26     EWR  2013     1  27  25.422500   8.472500  49.945417  296.086957   
+         27     EWR  2013     1  28  30.567500  20.120000  67.177500  111.428571   
+         28     EWR  2013     1  29  41.240000  37.092500  85.957500  133.636364   
+         29     EWR  2013     1  30  47.637500  45.005000  91.115833   68.333333   
+         ..     {\ldots}   {\ldots}   {\ldots}  ..        {\ldots}        {\ldots}        {\ldots}         {\ldots}   
+         342    EWR  2013    12   2  44.262500  30.912500  59.469167  106.250000   
+         343    EWR  2013    12   3  44.450000  35.037500  72.165417  154.166667   
+         344    EWR  2013    12   4  43.827500  36.365000  75.430000   52.500000   
+         345    EWR  2013    12   5  51.830000  48.537500  88.708333   48.750000   
+         346    EWR  2013    12   6  52.107500  49.632500  91.290000  252.916667   
+         347    EWR  2013    12   7  38.315000  30.125000  74.330833  250.000000   
+         348    EWR  2013    12   8  31.122500  16.805000  55.514167  160.416667   
+         349    EWR  2013    12   9  33.687500  32.442500  95.185000  110.000000   
+         350    EWR  2013    12  10  33.882500  31.152500  89.748750  243.478261   
+         351    EWR  2013    12  11  28.235000  16.647500  61.745417  236.250000   
+         352    EWR  2013    12  12  25.925000  10.145000  51.341667  282.500000   
+         353    EWR  2013    12  13  25.865000  10.460000  51.832917  243.750000   
+         354    EWR  2013    12  14  26.585000  19.145000  74.497083   80.833333   
+         355    EWR  2013    12  15  32.495000  28.850000  87.185833  197.916667   
+         356    EWR  2013    12  16  29.285000  14.525000  54.089583  262.083333   
+         357    EWR  2013    12  17  26.545217  18.844348  73.813478  117.391304   
+         358    JFK  2013    12  17  26.960000  10.940000  50.340000   40.000000   
+         359    EWR  2013    12  18  27.830000  19.497500  71.921667  255.416667   
+         360    EWR  2013    12  19  32.337500  21.950000  65.785833  213.750000   
+         361    EWR  2013    12  20  41.442500  30.597500  65.970833  128.333333   
+         362    EWR  2013    12  21  50.907500  43.482500  76.558333  205.833333   
+         363    EWR  2013    12  22  64.782500  57.402500  77.243750  207.916667   
+         364    EWR  2013    12  23  58.895000  55.752500  89.546667  215.454545   
+         365    EWR  2013    12  24  38.870000  24.245000  56.234167  322.916667   
+         366    EWR  2013    12  25  25.467500   7.002500  45.288750  254.545455   
+         367    EWR  2013    12  26  31.047500  19.047500  60.904167  153.750000   
+         368    EWR  2013    12  27  34.242500  19.872500  56.687500  253.750000   
+         369    EWR  2013    12  28  39.155000  23.007500  54.897500  222.916667   
+         370    EWR  2013    12  29  43.047500  32.330000  67.602083  166.521739   
+         371    EWR  2013    12  30  38.900000  30.717500  73.838750  280.833333   
+         
+              wind\_speed  wind\_gust    precip     pressure      visib  dep\_delay  
+         0     12.758648  14.682397  0.000000  1012.442857  10.000000  17.483553  
+         1     12.514732  14.401704  0.000000  1017.337500  10.000000  25.322674  
+         2      7.863663   9.049346  0.000000  1021.058333  10.000000   8.450450  
+         3     13.857309  15.946714  0.000000  1017.533333  10.000000  12.103858  
+         4     10.836512  12.470441  0.000000  1021.120833  10.000000   5.696203  
+         5      8.007511   9.214883  0.000000  1019.905263   9.166667  12.383333  
+         6      8.870596  10.208104  0.000000  1022.970833  10.000000   9.777778  
+         7      6.616985   7.614694  0.000000  1028.833333   9.750000   3.807229  
+         8      4.651069   5.352357  0.000000  1026.558333   9.041667   3.131343  
+         9     10.117274  11.642757  0.000000  1028.937500  10.000000   5.580175  
+         10     4.938764   5.683431  0.000833  1031.123810   9.416667   4.668622  
+         11     5.705951   6.566294  0.011250  1020.473333   3.895833   2.366379  
+         12     2.013865   2.317516  0.000000  1019.750000   2.207917  28.219595  
+         13     5.274408   6.069684  0.000000  1018.061111   4.187500   1.653959  
+         14     9.925478  11.422041  0.005833  1025.654545   9.958333   2.036585  
+         15     7.671867   8.828631  0.026667  1018.747059   5.125000  33.298137  
+         16     9.350088  10.759894  0.000000  1016.185714   9.791667  15.869436  
+         17    11.555749  13.298125  0.000000  1024.704167  10.000000  13.149701  
+         18    13.953208  16.057072  0.000000  1025.095833  10.000000   4.925764  
+         19    15.727327  18.098693  0.000000  1010.041667  10.000000  16.862543  
+         20     7.575968   8.718273  0.000000  1016.475000  10.000000  11.611940  
+         21    16.590412  19.091914  0.000000  1015.021739   9.958333  17.225904  
+         22    13.138072  15.119030  0.000000  1023.120833  10.000000  17.837838  
+         23    12.274987  14.125809  0.000000  1023.404167  10.000000  34.100890  
+         24    10.309071  11.863473  0.000417  1028.585714   8.937500  29.704615  
+         25     9.685732  11.146146  0.000417  1020.357143   9.218750   8.687225  
+         26    10.117274  11.642757  0.048333  1030.770833  10.000000  12.359862  
+         27     3.979781   4.579852  0.000000  1029.176471   6.687500  21.130137  
+         28     5.370307   6.180042  0.001667  1018.242105   6.083333   6.297872  
+         29     4.699018   5.407536  0.000833  1011.040000   3.859167  33.777409  
+         ..          {\ldots}        {\ldots}       {\ldots}          {\ldots}        {\ldots}        {\ldots}  
+         342    2.781052   3.200379  0.000000  1014.916667   8.666667  12.912921  
+         343    5.226459   6.014505  0.000000  1012.962500   7.916667   7.162393  
+         344    3.931832   4.524673  0.000000  1018.182609   6.166667  10.479532  
+         345    2.829001   3.255558  0.000000  1017.875000   3.927083  61.221843  
+         346    8.726748  10.042567  0.005417  1014.933333   4.906250  23.275974  
+         347   11.699597  13.463662  0.017500  1025.587500   7.833333   8.776316  
+         348    8.151358   9.380420  0.000417  1034.142857   9.145833  24.985915  
+         349   10.500868  12.084188  0.012917  1020.110000   3.281250  50.230284  
+         350    9.014443  10.373641  0.009167  1015.476471   6.979167  26.330544  
+         351   11.699597  13.463662  0.000000  1023.466667  10.000000  12.550296  
+         352   11.747546  13.518841  0.000000  1025.358333  10.000000   9.000000  
+         353   11.220105  12.911872  0.000000  1022.300000  10.000000   7.901449  
+         354   10.788562  12.415262  0.005000  1027.815789   6.218750  12.706250  
+         355   13.377818  15.394925  0.025417  1004.537500   6.531250  15.576642  
+         356   12.946275  14.898314  0.000000  1015.812500  10.000000  12.598266  
+         357    7.605155   8.751860  0.003478  1023.000000   5.956522  39.972222  
+         358    4.603120   5.297178  0.000000  1023.900000  10.000000  34.084559  
+         359    9.398037  10.815073  0.000000  1016.890476   9.916667  13.486726  
+         360    7.096477   8.166483  0.000000  1020.420833   9.625000  24.359420  
+         361    4.123628   4.745389  0.000000  1018.041667   9.958333  28.680473  
+         362    6.760832   7.780231  0.000000  1014.866667   9.958333  25.917266  
+         363   12.850377  14.787956  0.001250  1012.000000  10.000000  46.160535  
+         364    7.432121   8.552736  0.012500  1015.029412   7.250000  42.590778  
+         365   13.953207  16.057072  0.000000  1020.968182  10.000000   9.450593  
+         366   10.980359  12.635978  0.000000  1031.016667  10.000000  10.094017  
+         367    5.801849   6.676652  0.000000  1027.128571   9.541667  20.256250  
+         368    8.343155   9.601136  0.000000  1026.475000  10.000000  16.256560  
+         369    8.822647  10.152925  0.000000  1023.116667  10.000000   8.768421  
+         370    8.103409   9.325241  0.032917  1014.595000   7.947917  30.139456  
+         371   12.035241  13.849914  0.000000  1012.540909  10.000000  16.730435  
+         
+         [372 rows x 14 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} plot the variables from weather with the flights.dep\PYZus{}delay to see the relationship}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Temp vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{331}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{temp}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temp vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg Temp in F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} dewpoint vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{332}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dewp}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dewpoint vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dewpoint}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} humidity vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{333}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{humid}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{humidity vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg humidity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} wind direction vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{334}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{wind\PYZus{}dir}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind direction vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wind Direction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} wind speed vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{335}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{wind\PYZus{}speed}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind speed vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg wind speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} wind\PYZus{}gust vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{336}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{wind\PYZus{}gust}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wind\PYZus{}gust vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg wind\PYZus{}gust}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} precip vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{337}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{precip}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precip vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg precip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} pressure vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{338}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{pressure}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pressure vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} visiability vs dep\PYZus{}delay}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{339}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{visib}\PY{p}{,} \PY{n}{flights\PYZus{}weather}\PY{o}{.}\PY{n}{dep\PYZus{}delay}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{visiability vs dep\PYZus{}delay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg visib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg dep\PYZus{}delay in min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As can be seen from the graph: - \textbf{temp vs dep\_delay} -
+Temperature doesn't have a very strong impact on the delay, but slightly
+there is the pattern that as temperature goes up, the delay in min get
+slightly longer. - \textbf{dewpoint vs dep\_delay} - As the avg dewpoint
+gets larger, the delay in min gets slightly longer. - \textbf{humidity
+vs dep\_delay} - humidity and avg dep\_delay has a positive correlation:
+as avg humidity goes up, the avg delay in minutes goes higher too -
+\textbf{wind direction vs dep\_delay} - when the wind direction is
+around 200-300, the avg delay happens very frequently and usually for
+within 30 min - \textbf{wind speed vs dep\_delay} - we can observe that
+the delay happens very frequently and usually lasts for 0 - 60 min when
+there is wind and the avg wind speed is around 0 - 20 - \textbf{wind
+gust vs dep\_delay} - same as the wind speed, the delay happens very
+frequently and usually lasts for 0 - 60 min when there is wind gust and
+the avg wind gust is around 0 - 20 - \textbf{precipitation vs
+dep\_delay} - precipitation at 0.00 -0.02 has a very strong influence in
+flights delay. Delays happens very frequently when there is
+precipitation and usually lasts from 0-60 min - \textbf{pressure vs
+dep\_delay} - overall when the pressure is in the 1005 - 1030 range,
+delays happen more frequenlty and can last for 0 - 60 min -
+\textbf{visability vs dep\_delay} - visability usually doesn't have a
+strong influence on departure delay until it reaches to a certain level.
+delays happen when the avg visability reaches to 4 and the delay
+instances occur a lot when the visability reaches to 10.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
